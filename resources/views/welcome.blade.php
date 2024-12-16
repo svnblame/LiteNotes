@@ -13,36 +13,33 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="font-sans antialiased min-h-screen grid place-items-center">
-<div class="bg-gray-50 text-black/50">
-    @if (Route::has('login'))
-{{--        <nav class="-mx-3 flex flex-1 justify-end">--}}
-            @auth
+@if (Route::has('login'))
+    <div class="absolute top-0 right-0 p-6">
+        @auth
+            <a
+                href="{{ url('/dashboard') }}"
+                class="text-indigo-600 hover:text-inigo-800"
+            >
+                Dashboard
+            </a>
+        @else
+            <a
+                href="{{ route('login') }}"
+                class="text-indigo-600 hover:text-inigo-800 mr-4"
+            >
+                Log in
+            </a>
+
+            @if (Route::has('register'))
                 <a
-                    href="{{ url('/dashboard') }}"
+                    href="{{ route('register') }}"
                     class="text-indigo-600 hover:text-inigo-800"
                 >
-                    Dashboard
+                    Register
                 </a>
-            @else
-                <div class="absolute top-0 right-0 p-6">
-                    <a
-                        href="{{ route('login') }}"
-                        class="text-indigo-600 hover:text-inigo-800 mr-4"
-                    >
-                        Log in
-                    </a>
-
-                    @if (Route::has('register'))
-                        <a
-                            href="{{ route('register') }}"
-                            class="text-indigo-600 hover:text-inigo-800"
-                        >
-                            Register
-                        </a>
-                    @endif
-                </div>
-            @endauth
-{{--        </nav>--}}
+            @endif
+        @endauth
+    </div>
 @endif
 
 <h1 class="text-7xl">LiteNotes</h1>
