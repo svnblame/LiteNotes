@@ -10,6 +10,8 @@ class Note extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['user_id', 'title', 'text'];
+
     public function user(): HasOne
     {
         return $this->hasOne(User::class);
