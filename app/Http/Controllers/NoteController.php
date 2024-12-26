@@ -12,7 +12,11 @@ class NoteController extends Controller
      */
     public function index()
     {
-        //
+        $user_id = auth()->user()->id;
+        $notes = Note::where('user_id', $user_id)->latest('updated_at')->get();
+        $notes->each(function ($note) {
+            dump($note->title);
+        });
     }
 
     /**
