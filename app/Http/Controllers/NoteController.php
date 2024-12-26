@@ -12,7 +12,8 @@ class NoteController extends Controller
      */
     public function index()
     {
-        //
+        $user_id = auth()->user()->id;
+        dd($user_id);
     }
 
     /**

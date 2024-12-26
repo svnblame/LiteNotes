@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('notebooks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId(User::class);
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }
