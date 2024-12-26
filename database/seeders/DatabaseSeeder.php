@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
 
         $user = User::factory()
             ->has(
-                factory: Note::factory()->count(3))
+                factory: Note::factory()->count(10))
             ->create([
             'name' => 'Gene',
             'email' => 'gene@litenotes.com',
