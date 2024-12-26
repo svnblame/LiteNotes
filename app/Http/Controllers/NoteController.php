@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Note;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class NoteController extends Controller
 {
@@ -39,6 +40,7 @@ class NoteController extends Controller
         ]);
 
         Note::create([
+            'uuid' => Str::uuid(),
             'user_id' => auth()->user()->id,
             'title' => $request->title,
             'text' => $request->text,
