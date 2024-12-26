@@ -10,7 +10,9 @@
             <x-link-button href="{{ route('notes.create') }}">Create Note</x-link-button>
             @forelse($notes as $note)
                 <div class="bg-white p-6 overflow-hidden shadow-sm sm:rounded-lg">
-                    <h2 class="font-bold text-xl text-indigo-600">{{ $note->title }}</h2>
+                    <h2 class="font-bold text-xl text-indigo-600">
+                        <a href="{{ route('notes.show', $note) }}" class="hover:underline hover:opacity-80">{{ $note->title }}</a>
+                    </h2>
                     <p class="mt-2">{{ Str::limit($note->text, 120) }}</p>
                     <span class="block mt-4 text-sm opacity-40">{{ $note->updated_at->diffForHumans() }}</span>
                 </div>
