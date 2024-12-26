@@ -13,6 +13,7 @@ class NoteFactory extends Factory
     public function definition(): array
     {
         return [
+            'uuid' => $this->faker->uuid(),
             'title' => $this->faker->word(),
             'text' => $this->faker->text(),
             'created_at' => Carbon::now(),
