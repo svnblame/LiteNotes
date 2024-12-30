@@ -39,7 +39,7 @@ class NoteController extends Controller
             'text' => 'required|min:3',
         ]);
 
-        Note::create([
+        $note = Note::create([
             'uuid' => Str::uuid(),
             'user_id' => auth()->user()->id,
             'title' => $request->title,
@@ -100,6 +100,12 @@ class NoteController extends Controller
      */
     public function destroy(Note $note)
     {
-        //
+        if($note->user_id !== auth()->user()->id) {
+            abort(403);
+        }
+
+        $note->delete();
+
+        return to_route('notes.index');
     }
 }
