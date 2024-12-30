@@ -12,6 +12,15 @@
                 <p class="opacity-50"><strong>Updated: {{ $note->updated_at->diffForHumans() }}</strong></p>
 
                 <x-link-button href="{{ route('notes.edit', $note) }}" class="ml-auto ">Edit Note</x-link-button>
+
+                <form action="{{ route('notes.destroy', $note) }}" method="POST">
+                    @method('DELETE')
+                    @csrf
+
+                    <x-primary-button
+                        class="bg-red-400 hover:bg-red-600 focus:bg-red-600"
+                        onclick="return confirm('Are you sure you want to delete this note?')">Delete</x-primary-button>
+                </form>
             </div>
             <div class="bg-white p-6 overflow-hidden shadow-sm sm:rounded-lg">
                 <h2 class="font-bold text-4xl text-indigo-600">
