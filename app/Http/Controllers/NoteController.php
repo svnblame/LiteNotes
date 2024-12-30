@@ -45,6 +45,8 @@ class NoteController extends Controller
             'title' => $request->title,
             'text' => $request->text,
         ]);
+
+        return to_route('notes.show', $note);
     }
 
     /**
@@ -76,7 +78,21 @@ class NoteController extends Controller
      */
     public function update(Request $request, Note $note)
     {
-        //
+        if($note->user_id !== auth()->user()->id) {
+            abort(403);
+        }
+
+        $request->validate([
+            'title' => 'required|min:3|max:120',
+            'text' => 'required|min:3',
+        ]);
+
+        $note->update([
+            'title' => $request->title,
+            'text' => $request->text,
+        ]);
+
+        return to_route('notes.show', $note);
     }
 
     /**
