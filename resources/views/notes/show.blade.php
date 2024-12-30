@@ -10,6 +10,8 @@
             <div class="flex gap-6">
                 <p class="opacity-50"><strong>Created:</strong> {{ $note->created_at->diffForHumans() }}</p>
                 <p class="opacity-50"><strong>Updated: {{ $note->updated_at->diffForHumans() }}</strong></p>
+
+                <x-link-button href="{{ route('notes.edit', $note) }}" class="ml-auto ">Edit Note</x-link-button>
             </div>
             <div class="bg-white p-6 overflow-hidden shadow-sm sm:rounded-lg">
                 <h2 class="font-bold text-4xl text-indigo-600">
