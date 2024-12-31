@@ -22,10 +22,14 @@
 
                     <x-primary-button
                         class="bg-red-400 hover:bg-red-600 focus:bg-red-600"
-                        onclick="return confirm('Are you sure you want to delete this note?')">Delete</x-primary-button>
+                        onclick="return confirm('Are you sure you want to delete this note?')">Delete
+                    </x-primary-button>
                 </form>
             </div>
             <div class="bg-white p-6 overflow-hidden shadow-sm sm:rounded-lg">
+                @isset($note->notebook->name)
+                    <x-notebook-name>{{ $note->notebook->name }}</x-notebook-name>
+                @endisset
                 <h2 class="font-bold text-xl text-indigo-600">
                     {{ $note->title }}
                 </h2>
