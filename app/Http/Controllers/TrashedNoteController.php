@@ -36,4 +36,16 @@ class TrashedNoteController extends Controller
         return to_route('notes.show', $note)
             ->with('success', 'Note restored.');
     }
+
+    public function destroy(Note $note)
+    {
+        if ($note->user->isNot(auth()->user())) {
+            abort(403);
+        }
+
+        $note->forceDelete();
+
+        return to_route('trash.index', $note)
+            ->with('success', 'Note was permanently deleted.');
+    }
 }
