@@ -10,7 +10,7 @@ class Note extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['uuid', 'user_id', 'title', 'text'];
+    protected $fillable = ['uuid', 'user_id', 'title', 'text', 'notebook_id'];
 
     public function getRouteKeyName(): string
     {
