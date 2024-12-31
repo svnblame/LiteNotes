@@ -18,6 +18,14 @@
                     @error('text')
                         <span class="text-sm mt-2 text-red-500">{{ $message }}</span>
                     @enderror
+
+                    <select name="notebook_id" class="w-full mt-6 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                        <option value="">-- Select Notebook --</option>
+                        @foreach ($notebooks as $notebook)
+                            <option value="{{ $notebook->id }}">{{ $notebook->name }}</option>
+                        @endforeach
+                    </select>
+
                     <br>
                     <x-primary-button class="mt-6">Save Note</x-primary-button>
                 </form>

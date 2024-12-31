@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Note;
+use App\Models\Notebook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -26,7 +27,9 @@ class NoteController extends Controller
      */
     public function create()
     {
-       return view('notes.create');
+        $notebooks = Notebook::where('user_id', auth()->user()->id)->get();
+
+        return view('notes.create', compact('notebooks'));
     }
 
     /**
@@ -44,9 +47,11 @@ class NoteController extends Controller
             'user_id' => auth()->user()->id,
             'title' => $request->title,
             'text' => $request->text,
+            'notebook_id' => $request->notebook_id,
         ]);
 
-        return to_route('notes.show', $note);
+        return to_route('notes.show', $note)
+            ->with('success', 'Note created successfully.');
     }
 
     /**
@@ -70,7 +75,9 @@ class NoteController extends Controller
             abort(403);
         }
 
-        return view('notes.edit', compact('note'));
+        $notebooks = Notebook::where('user_id', auth()->user()->id)->get();
+
+        return view('notes.edit', compact('note', 'notebooks'));
     }
 
     /**
@@ -90,9 +97,11 @@ class NoteController extends Controller
         $note->update([
             'title' => $request->title,
             'text' => $request->text,
+            'notebook_id' => $request->notebook_id,
         ]);
 
-        return to_route('notes.show', $note)->with('success', 'Note updated successfully.');
+        return to_route('notes.show', $note)
+            ->with('success', 'Note updated successfully.');
     }
 
     /**
@@ -106,6 +115,7 @@ class NoteController extends Controller
 
         $note->delete();
 
-        return to_route('notes.index')->with('success', 'Note has been deleted');
+        return to_route('notes.index')
+            ->with('success', 'Note has been deleted');
     }
 }
