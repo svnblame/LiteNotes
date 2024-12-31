@@ -14,10 +14,9 @@ class NoteController extends Controller
      */
     public function index()
     {
-        $user_id = auth()->user()->id;
-        $notes = Note::where('user_id', $user_id)
+        $notes = auth()->user()->notes()
             ->latest('updated_at')
-            ->paginate(5);
+            ->paginate(3);
 
         return view('notes.index', compact('notes'));
     }
@@ -42,9 +41,8 @@ class NoteController extends Controller
             'text' => 'required|min:3',
         ]);
 
-        $note = Note::create([
+        $note = auth()->user()->notes()->create([
             'uuid' => Str::uuid(),
-            'user_id' => auth()->user()->id,
             'title' => $request->title,
             'text' => $request->text,
             'notebook_id' => $request->notebook_id,
@@ -59,7 +57,7 @@ class NoteController extends Controller
      */
     public function show(Note $note)
     {
-        if($note->user_id !== auth()->user()->id) {
+        if($note->user->isNot(auth()->user())) {
             abort(403);
         }
 
@@ -71,7 +69,7 @@ class NoteController extends Controller
      */
     public function edit(Note $note)
     {
-        if($note->user_id !== auth()->user()->id) {
+        if($note->user->isNot(auth()->user())) {
             abort(403);
         }
 
@@ -85,7 +83,7 @@ class NoteController extends Controller
      */
     public function update(Request $request, Note $note)
     {
-        if($note->user_id !== auth()->user()->id) {
+        if($note->user->isNot(auth()->user())) {
             abort(403);
         }
 
@@ -94,7 +92,7 @@ class NoteController extends Controller
             'text' => 'required|min:3',
         ]);
 
-        $note->update([
+        auth()->user()->notes()->where(['id' => $note->id])->update([
             'title' => $request->title,
             'text' => $request->text,
             'notebook_id' => $request->notebook_id,
@@ -109,7 +107,7 @@ class NoteController extends Controller
      */
     public function destroy(Note $note)
     {
-        if($note->user_id !== auth()->user()->id) {
+        if($note->user->isNot(auth()->user())) {
             abort(403);
         }
 

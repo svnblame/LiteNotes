@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Note extends Model
@@ -17,8 +18,8 @@ class Note extends Model
         return 'uuid';
     }
 
-    public function user(): HasOne
+    public function user(): BelongsTo
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 }
