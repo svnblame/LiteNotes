@@ -26,7 +26,7 @@
                 </form>
             </div>
             <div class="bg-white p-6 overflow-hidden shadow-sm sm:rounded-lg">
-                <h2 class="font-bold text-4xl text-indigo-600">
+                <h2 class="font-bold text-xl text-indigo-600">
                     {{ $note->title }}
                 </h2>
                 <p class="mt-4 whitespace-pre-wrap">{{ $note->text }}</p>
