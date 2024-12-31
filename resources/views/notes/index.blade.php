@@ -37,7 +37,11 @@
                     <span class="block mt-4 text-sm opacity-40">{{ $note->updated_at->diffForHumans() }}</span>
                 </div>
             @empty
-                <p>You have no notes yet</p>
+                @if (request()->routeIs('notes.index'))
+                    <p>You don't have any notes yet</p>
+                @else
+                    <p>Your trash is empty</p>
+                @endif
             @endforelse
 
             {{ $notes->links() }}
